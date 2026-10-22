@@ -20,7 +20,7 @@ def load_vocabulary(filename="vocabulary.json"):
 vocab = load_vocabulary()
 
 def print_intro():
-    print("Welcome to the Lingo Challenge!")
+    print("Welcome to Vokabelrunde!")
     print("You will be given a number of random English words to translate into German.")
     print("Small errors are allowed as long as your answer is close enough to the correct translation.\n")
 
@@ -75,7 +75,7 @@ def run_challenge(num=10):
     print_results(results)
 
 def main():
-    parser = argparse.ArgumentParser(description="Lingo Challenge Project")
+    parser = argparse.ArgumentParser(description="Vokabelrunde — English-to-German vocabulary practice")
     parser.add_argument(
         "mode",
         nargs="?",

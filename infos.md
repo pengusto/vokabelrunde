@@ -1,8 +1,8 @@
-# Lingo Challenge
+# Vokabelrunde
 
 By Enis Uysal
 
-GitHub username (enis-uys)
+GitHub username: [pengusto](https://github.com/pengusto) (formerly enis-uys)
 
 Living in Essen, Germany
 

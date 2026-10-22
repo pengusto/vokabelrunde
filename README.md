@@ -1,8 +1,8 @@
-# Lingo Challenge
+# Vokabelrunde
 
 **One English word. One German answer. A little practice, right in your terminal.**
 
-Lingo Challenge is a small Python vocabulary trainer for learners who want a quick English-to-German recall exercise, and for Python learners exploring a readable command-line project. Review the emoji vocabulary list, then try a random round and see how you did.
+Vokabelrunde is a small Python vocabulary trainer for learners who want a quick English-to-German recall exercise, and for Python learners exploring a readable command-line project. Review the emoji vocabulary list, then try a random round and see how you did.
 
 [Watch the original video demo](https://www.youtube.com/watch?v=3rVBuE747-o) · [Browse the vocabulary](vocabulary.json) · [Read the code](project.py)
 
@@ -28,8 +28,8 @@ Each round samples words without repetition. Answers get immediate feedback, fol
 You need **Python 3** and a terminal. The trainer uses only Python's standard library: no account, API key or runtime package installation is needed. The commands below were checked with Python 3.14.7.
 
 ```sh
-git clone https://github.com/pengusto/lingo-challenge-hosted.git
-cd lingo-challenge-hosted
+git clone https://github.com/pengusto/vokabelrunde.git
+cd vokabelrunde
 python3 project.py vocab
 python3 project.py challenge --num 5
 ```
@@ -79,4 +79,4 @@ This repository contains a standalone terminal trainer and its tests, rather tha
 
 The project code, documentation and included vocabulary data are available under the [MIT License](LICENSE), copyright © 2026 Enis Uysal. The linked video remains at its original location and is not covered by this repository license. The example above is text captured from the program; no third-party images or fonts have been added.
 
-Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/lingo-challenge-hosted/issues) with the command you ran, your Python version and the expected result.
+Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/vokabelrunde/issues) with the command you ran, your Python version and the expected result.
