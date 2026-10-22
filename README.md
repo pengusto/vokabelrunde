@@ -1,59 +1,82 @@
 # Lingo Challenge
-#### Video Demo:  <[Click Here](https://www.youtube.com/watch?v=3rVBuE747-o)>
-#### Description:
-Lingo Challenge is a simple text-based vocabulary trainer that tests your English-to-German translation skills by showing you random words from a vocabulary database. This project is designed to help users improve their language abilities in a fun and interactive way.
 
-## What It Does
-Lingo Challenge has two primary modes:
+**One English word. One German answer. A little practice, right in your terminal.**
 
-1. Vocabulary Mode: This mode displays all the words stored in the vocabulary database. It allows you to review and learn new vocabulary at your own pace. Each word is accompanied by a fun emoji, making it visually appealing and easier to remember.
+Lingo Challenge is a small Python vocabulary trainer for learners who want a quick English-to-German recall exercise, and for Python learners exploring a readable command-line project. Review the emoji vocabulary list, then try a random round and see how you did.
 
-2. Challenge Mode: In this mode, the program randomly selects a set number of English words (the default is 10, but you can change this using a command-line parameter) and asks you to translate them into German. After each translation, you immediately receive instant feedback— a ✅ is displayed if your answer is correct, and a ❌ if it is incorrect.
+[Watch the original video demo](https://www.youtube.com/watch?v=3rVBuE747-o) · [Browse the vocabulary](vocabulary.json) · [Read the code](project.py)
 
-### Fuzzy Matching:
-The program uses fuzzy matching to allow for small typing mistakes. This means that nearly correct answers will still be accepted as right. The similarity between your answer and the correct translation is calculated using a similarity ratio, so you don’t need to worry about minor errors. This feature helps create a more forgiving learning environment, enabling you to focus on learning without being penalized for small mistakes.
+## From “city” to “Stadt”
 
-### Vocabulary Database:
-All the vocabulary words, along with their translations and corresponding emojis, are stored in a separate JSON file called `vocabulary.json`. This design choice keeps the vocabulary data separate from the code, making it easy to update and maintain. You can easily add or remove words without changing the program’s logic.
+A real one-word run, with `test` entered as the answer:
 
-## How to Run
+```text
+Translate 'city' 🏙️ into German:
+> test
+❌ Incorrect!
 
-**Step 1: Clone or Download the Project Files**\
-Make sure you have the following files in the same folder:
+--- Your Results ---
+1. city 🏙️ -> Your answer: 'test' | Should be: 'Stadt' | Incorrect ❌
 
--   `project.py` -- the main program file.
+Result: 0 out of 1 correct.
+```
 
--   `vocabulary.json` -- the file containing the vocabulary data.
+Each round samples words without repetition. Answers get immediate feedback, followed by a recap showing your answer, the stored translation and the total score. There is no timer or saved progress.
 
--   (Optional) `test_project.py` -- the file containing unit tests for the project.
+## Try a round
 
-**Step 2: Run the Program from the Terminal**\
-Open your terminal, navigate to the project folder, and use the following commands to run the program:
+You need **Python 3** and a terminal. The trainer uses only Python's standard library: no account, API key or runtime package installation is needed. The commands below were checked with Python 3.14.7.
 
--   **To Start the Challenge Mode (default 10 words):**
+```sh
+git clone https://github.com/pengusto/lingo-challenge-hosted.git
+cd lingo-challenge-hosted
+python3 project.py vocab
+python3 project.py challenge --num 5
+```
 
-    `python project.py challenge`
+Run commands from the repository directory: the program reads `vocabulary.json` from the current working directory. On Windows, use `py` in place of `python3` if that is your Python launcher.
 
--   **To Specify a Different Number of Words (for example, 15 words):**
+| What you want | Command |
+| --- | --- |
+| Review the full list | `python3 project.py vocab` |
+| Start the default 10-word round | `python3 project.py` |
+| Pick a round length | `python3 project.py challenge --num 15` |
+| Show command help | `python3 project.py --help` |
 
-    `python project.py challenge --num 15`
+Use a positive integer for `--num`. If you request more words than the list contains, the program uses the whole list. Press Ctrl+C to leave a round early; it does not save unfinished results.
 
--   **To Display the Entire Vocabulary Database (Vocabulary Mode):**
+## How answers are checked
 
-    `python project.py vocab`
+Answers are trimmed and compared case-insensitively with the single German translation stored for each word. Python's `difflib.SequenceMatcher` must return a similarity ratio of at least **0.9**.
 
-Testing
--------
+That permits some small differences, but it is a character comparison, not a language assessment. Short-word typos can still fail; valid synonyms, articles, plurals or alternative spellings are not automatically recognized. Use the vocabulary view to see the expected form.
 
-A test file, `test_project.py`, is included to help you verify that the main features of the project work as expected. This file uses the `pytest` framework for automated testing. To run the tests, simply use the command:
+## Make the word list your own
 
-`python -m pytest test_project.py`
+The included [vocabulary.json](vocabulary.json) contains **100 entries** with an English word, a German translation and an emoji:
 
-This will run all the tests and provide you with a summary of the test results, ensuring that each part of the project is functioning correctly.
+```json
+{"english": "friend", "german": "Freund", "emoji": "🤝"}
+```
 
-Summary
--------
+Edit or add objects inside the existing JSON array, keep valid JSON syntax and save as UTF-8. `english` and `german` are required by the trainer; `emoji` is optional. Restart the program after editing. The list is a practice aid, not a comprehensive dictionary; suggestions for ambiguous translations are welcome.
 
-Lingo Challenge is an easy-to-use vocabulary trainer that combines the power of random word selection, fuzzy matching for translation checking, and instant feedback with emojis. It helps you practice and improve your language skills in a fun and interactive way. Whether you choose to review the entire vocabulary list or engage in a timed challenge, this project offers flexibility and an engaging user experience. Enjoy using Lingo Challenge to boost your language learning and make studying vocabulary a more enjoyable experience!
+## Check the project
 
-Feel free to contribute, add more words, or suggest improvements to make this tool even more helpful. Happy learning!
+The existing four pytest tests cover exact and incorrect answers, word selection and the results summary. To run them in an isolated environment:
+
+```sh
+python3 -m venv .venv
+.venv/bin/python -m pip install pytest
+.venv/bin/python -m pytest test_project.py
+```
+
+On Windows, use `.venv\Scripts\python.exe` for the last two commands. `pytest` is the only external test dependency. The current `requirements.txt` also lists `random`, `argparse` and `difflib`, which are standard-library modules; installing that file is not required for the quickstart above.
+
+## Project notes and rights
+
+This repository contains a standalone terminal trainer and its tests, rather than a hosted web application. The original [project note](infos.md) credits Enis Uysal and dates the video recording to March 2025. There is no declared maintenance schedule or release compatibility matrix.
+
+No license file is currently included. Public availability does not itself grant an open-source license; reuse and redistribution permissions remain unspecified. The video is linked at its original location, and the example above is text captured from the program; no third-party images or fonts have been added.
+
+Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/lingo-challenge-hosted/issues) with the command you ran, your Python version and the expected result.
