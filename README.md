@@ -77,6 +77,6 @@ On Windows, use `.venv\Scripts\python.exe` for the last two commands. `pytest` i
 
 This repository contains a standalone terminal trainer and its tests, rather than a hosted web application. The original [project note](infos.md) credits Enis Uysal and dates the video recording to March 2025. There is no declared maintenance schedule or release compatibility matrix.
 
-No license file is currently included. Public availability does not itself grant an open-source license; reuse and redistribution permissions remain unspecified. The video is linked at its original location, and the example above is text captured from the program; no third-party images or fonts have been added.
+The project code, documentation and included vocabulary data are available under the [MIT License](LICENSE), copyright © 2026 Enis Uysal. The linked video remains at its original location and is not covered by this repository license. The example above is text captured from the program; no third-party images or fonts have been added.
 
 Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/lingo-challenge-hosted/issues) with the command you ran, your Python version and the expected result.
