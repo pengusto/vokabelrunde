@@ -1,69 +1,81 @@
-# Vokabelrunde
+<p align="center">
+  <img src="assets/vokabelrunde-banner.png" alt="Vokabelrunde — English to German, one word at a time. Two vocabulary cards show tree becoming Baum." width="100%">
+</p>
 
-**One English word. One German answer. A little practice, right in your terminal.**
+<h1 align="center">Vokabelrunde</h1>
 
-Vokabelrunde is a small Python vocabulary trainer for learners who want a quick English-to-German recall exercise, and for Python learners exploring a readable command-line project. Review the emoji vocabulary list, then try a random round and see how you did.
+<p align="center">
+  <strong>Five words. A little recall. One more round?</strong><br>
+  English-to-German vocabulary practice in your terminal.
+</p>
 
-[Watch the original video demo](https://www.youtube.com/watch?v=3rVBuE747-o) · [Browse the vocabulary](vocabulary.json) · [Read the code](project.py)
+<p align="center">
+  <a href="#take-a-round">Try it</a> ·
+  <a href="https://www.youtube.com/watch?v=3rVBuE747-o">Original video</a> ·
+  <a href="vocabulary.json">Word list</a> ·
+  <a href="LICENSE">MIT License</a>
+</p>
 
-## From “city” to “Stadt”
+## Small rounds, familiar words
 
-A real one-word run, with `test` entered as the answer:
+Start with an English word, type its German translation and get feedback straight away. Review the full list first, or jump into a random round. Vokabelrunde is a small, readable Python project for German learners and anyone learning to build a CLI.
 
-```text
-Translate 'city' 🏙️ into German:
-> test
-❌ Incorrect!
+| Review | Recall | Reflect |
+| :--- | :--- | :--- |
+| Browse **100 words** with emoji cues. | Pick your round length. Words are sampled without repetition. | Get instant feedback, then a recap of your answers and score. |
 
---- Your Results ---
-1. city 🏙️ -> Your answer: 'test' | Should be: 'Stadt' | Incorrect ❌
+## A round in motion
 
-Result: 0 out of 1 correct.
-```
+![A real two-word terminal round: Tür is accepted for door, test is rejected for bus, and the final score is 1 out of 2.](assets/terminal-demo.gif)
 
-Each round samples words without repetition. Answers get immediate feedback, followed by a recap showing your answer, the stored translation and the total score. There is no timer or saved progress.
+*Captured from the running CLI with automated answers, then rendered as an animation. Emoji glyphs are omitted in this rendering.* [Still image](assets/terminal-demo.png) · [Full text transcript](assets/demo.txt)
 
-## Try a round
+## Take a round
 
-You need **Python 3** and a terminal. The trainer uses only Python's standard library: no account, API key or runtime package installation is needed. The commands below were checked with Python 3.14.7.
+**Python 3. No runtime packages, account or API key.**
 
 ```sh
 git clone https://github.com/pengusto/vokabelrunde.git
 cd vokabelrunde
-python3 project.py vocab
 python3 project.py challenge --num 5
 ```
 
-Run commands from the repository directory: the program reads `vocabulary.json` from the current working directory. On Windows, use `py` in place of `python3` if that is your Python launcher.
+Run from the repository directory so the program can find `vocabulary.json`. On Windows, use `py` instead of `python3` if that is your Python launcher. These commands were checked with Python 3.14.7.
 
-| What you want | Command |
-| --- | --- |
-| Review the full list | `python3 project.py vocab` |
-| Start the default 10-word round | `python3 project.py` |
-| Pick a round length | `python3 project.py challenge --num 15` |
-| Show command help | `python3 project.py --help` |
+| In the mood for… | Run |
+| :--- | :--- |
+| A look at the word list | `python3 project.py vocab` |
+| The default 10-word round | `python3 project.py` |
+| A longer, 15-word round | `python3 project.py challenge --num 15` |
+| Command help | `python3 project.py --help` |
 
-Use a positive integer for `--num`. If you request more words than the list contains, the program uses the whole list. Press Ctrl+C to leave a round early; it does not save unfinished results.
+There is **no timer or saved progress**. Use a positive integer for `--num`; requesting more words than available uses the whole list. Ctrl+C leaves a round early without saving unfinished results.
 
-## How answers are checked
+## Close enough? Sometimes.
 
-Answers are trimmed and compared case-insensitively with the single German translation stored for each word. Python's `difflib.SequenceMatcher` must return a similarity ratio of at least **0.9**.
+Answers are trimmed and checked case-insensitively against one stored translation. A character similarity score of **0.9 or higher** counts as correct.
 
-That permits some small differences, but it is a character comparison, not a language assessment. Short-word typos can still fail; valid synonyms, articles, plurals or alternative spellings are not automatically recognized. Use the vocabulary view to see the expected form.
+This can forgive small differences, but it does not understand meaning. Short-word typos may still fail; synonyms, articles, plurals and alternative spellings are not automatically recognized. The word list shows the expected form.
 
-## Make the word list your own
+<details>
+<summary><strong>Add your own words</strong></summary>
 
-The included [vocabulary.json](vocabulary.json) contains **100 entries** with an English word, a German translation and an emoji:
+Edit [vocabulary.json](vocabulary.json), keeping the existing JSON array and UTF-8 encoding. Each object needs `english` and `german`; `emoji` is optional:
 
 ```json
 {"english": "friend", "german": "Freund", "emoji": "🤝"}
 ```
 
-Edit or add objects inside the existing JSON array, keep valid JSON syntax and save as UTF-8. `english` and `german` are required by the trainer; `emoji` is optional. Restart the program after editing. The list is a practice aid, not a comprehensive dictionary; suggestions for ambiguous translations are welcome.
+Restart the program after changes. The included 100 entries are a practice aid, not a comprehensive dictionary; suggestions for ambiguous translations are welcome.
 
-## Check the project
+</details>
 
-The existing four pytest tests cover exact and incorrect answers, word selection and the results summary. To run them in an isolated environment:
+<details>
+<summary><strong>Explore the code and run the tests</strong></summary>
+
+[project.py](project.py) contains the trainer: `argparse` handles commands, `random.sample` picks words and `difflib.SequenceMatcher` checks answers. All are part of Python's standard library.
+
+The four existing [pytest tests](test_project.py) cover exact and incorrect answers, word selection and the results summary:
 
 ```sh
 python3 -m venv .venv
@@ -71,12 +83,14 @@ python3 -m venv .venv
 .venv/bin/python -m pytest test_project.py
 ```
 
-On Windows, use `.venv\Scripts\python.exe` for the last two commands. `pytest` is the only external test dependency. The current `requirements.txt` also lists `random`, `argparse` and `difflib`, which are standard-library modules; installing that file is not required for the quickstart above.
+On Windows, use `.venv\Scripts\python.exe` for the last two commands. `pytest` is the only external test dependency. The current `requirements.txt` also lists standard-library modules (`random`, `argparse`, `difflib`); installing that file is not required to run the trainer.
 
-## Project notes and rights
+</details>
 
-This repository contains a standalone terminal trainer and its tests, rather than a hosted web application. The original [project note](infos.md) credits Enis Uysal and dates the video recording to March 2025. There is no declared maintenance schedule or release compatibility matrix.
+## Made for practice
 
-The project code, documentation and included vocabulary data are available under the [MIT License](LICENSE), copyright © 2026 Enis Uysal. The linked video remains at its original location and is not covered by this repository license. The example above is text captured from the program; no third-party images or fonts have been added.
+A standalone terminal trainer by **Enis Uysal / [pengusto](https://github.com/pengusto)**. The [original project note](infos.md) dates the demo recording to March 2025. No maintenance schedule or release compatibility matrix is declared.
 
-Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/vokabelrunde/issues) with the command you ran, your Python version and the expected result.
+Found an unclear word or an unexpected result? [Open an issue](https://github.com/pengusto/vokabelrunde/issues) with your command, Python version and expected result.
+
+Code, documentation, included vocabulary and the original README graphics are under the [MIT License](LICENSE), copyright © 2026 Enis Uysal. The linked video is outside this repository license. [Visual sources and rendering notes](assets/README.md).

@@ -1,0 +1,19 @@
+$ python3 project.py challenge --num 2
+Welcome to Vokabelrunde!
+You will be given a number of random English words to translate into German.
+Small errors are allowed as long as your answer is close enough to the correct translation.
+
+Translate 'door' 🚪 into German:
+> Tür
+✅ Correct!
+Translate 'bus' 🚌 into German:
+> test
+❌ Incorrect!
+
+--- Your Results ---
+1. door 🚪 -> Your answer: 'Tür' | Should be: 'Tür' | Correct ✅
+2. bus 🚌 -> Your answer: 'test' | Should be: 'Bus' | Incorrect ❌
+
+Result: 1 out of 2 correct.
+
+Thank you for participating!
