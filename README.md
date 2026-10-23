@@ -1,6 +1,8 @@
-<p align="center">
-  <img src="assets/vokabelrunde-banner.png" alt="Vokabelrunde — English to German, one word at a time. Two vocabulary cards show tree becoming Baum." width="100%">
-</p>
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="assets/vokabelrunde-penguin-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="assets/vokabelrunde-penguin-light.png">
+  <img src="assets/vokabelrunde-penguin-light.png" alt="Vokabelrunde: a friendly penguin turns English and German vocabulary cards in a circular fan, including tree and Baum." width="100%">
+</picture>
 
 <h1 align="center">Vokabelrunde</h1>
 
